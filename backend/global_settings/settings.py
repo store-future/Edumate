@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_3=^r4#i&+1udts_9mm0g_wd9f7^7fc!==rx_&n9=)8hembi+b'
+SECRET_KEY = 'django-insecure-31#54wa712f&k8i(9&$zq3#-+f#esk=ci2vrjv#idavq#gtosq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'rest_framework' ,               # configure restframewrok
+    'corsheaders',                   # configure corsheaers
+    'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -48,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',                     # configure middleware for cors 
+
 ]
 
 ROOT_URLCONF = 'global_settings.urls'
@@ -122,3 +127,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# ---------------------------------custom configuration------------------------------------------
+# settings.py
+AUTH_USER_MODEL = 'accounts.CustomUser'
+CORS_ALLOW_ALL_ORIGINS = True                                       # allowing domain list to make cross site request
