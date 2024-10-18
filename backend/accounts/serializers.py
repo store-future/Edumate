@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from .models import CustomUser
 
-class CustomUserSerializer(serializers.ModelSerializer):
+class RegistrationUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['email', 'first_name', 'last_name', 'mobile', 'password']
@@ -12,3 +12,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])  # Hash the password
         user.save()
         return user
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)

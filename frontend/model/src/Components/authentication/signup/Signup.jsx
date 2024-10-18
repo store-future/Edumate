@@ -1,4 +1,6 @@
+import "./Signup.css"
 import React, { useState } from 'react';
+
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -24,29 +26,30 @@ const Signup = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/accounts/signup/', {
+            const response = await fetch('http://127.0.0.1:8000/accounts/signup/', 
+                {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: {'Content-Type': 'application/json',},
                 body: JSON.stringify({
                     email: formData.email,
                     first_name: formData.first_name,
                     last_name: formData.last_name,
                     mobile: formData.mobile,
-                    password: formData.password,
-                }),
+                    password: formData.password,}
+                ),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 console.log('User created successfully:', data);
-            } else {
+            } 
+            else {
                 const errorData = await response.json();
                 console.error('Error creating user:', errorData);
                 alert('Error: ' + JSON.stringify(errorData));
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Network error:', error);
             alert('Network error. Please try again.');
         }
@@ -58,8 +61,8 @@ const Signup = () => {
             <form onSubmit={handleSubmit} className="signup-form">
                 <label htmlFor="first_name">First Name</label>
                 <input
-                    type="text"
-                    id="first_name"
+                    type="text"                  //A unique identifier for this input, useful for linking labels and inputs.
+                    id="first_name"              //Identifies this input field. This is important for the handleChange function, as it will be used to update the corresponding state property.
                     name="first_name"
                     value={formData.first_name}
                     onChange={handleChange}
