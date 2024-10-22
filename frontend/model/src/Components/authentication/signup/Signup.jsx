@@ -20,40 +20,38 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-
+    
         try {
-            const response = await fetch('http://127.0.0.1:8000/accounts/signup/', 
-                {
+            const response = await fetch('http://127.0.0.1:8000/accounts/signup/', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json',},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     email: formData.email,
                     first_name: formData.first_name,
                     last_name: formData.last_name,
                     mobile: formData.mobile,
-                    password: formData.password,}
-                ),
+                    password: formData.password,
+                }),
             });
-
+    
+            // Check if the response is successful (status code 200-299)
             if (response.ok) {
-                const data = await response.json();
-                console.log('User created successfully:', data);
-            } 
-            else {
-                const errorData = await response.json();
-                console.error('Error creating user:', errorData);
-                alert('Error: ' + JSON.stringify(errorData));
+                const responseData = await response.json();                         // Parse the response body as JSON
+                console.log("User created successfully:", responseData);
+                alert("User created successfully!");
+            } else {
+                // Handle errors (e.g., validation errors from the backend)
+                const errorData = await response.json();                            // extract json body from json obj
+                console.error("Error creating user:", errorData);
+                alert("User already exists");         //convert json obj body into string
             }
-        } 
-        catch (error) {
-            console.error('Network error:', error);
-            alert('Network error. Please try again.');
+        } catch (error) {
+            // Handle network errors or unexpected issues
+            console.error("Network error:", error);
+            alert("Network error occurred: " + error.message);
         }
     };
+    
 
     return (
         <div className="signup-container">

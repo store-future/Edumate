@@ -9,12 +9,13 @@ from .serializers import RegistrationUserSerializer , LoginSerializer
 def Signup(request):
     serializer = RegistrationUserSerializer(data=request.data)
     if serializer.is_valid():
-        # print(f"After validating data received from react {request.data}")
+        print(f"After validating data received from react {request.data}")
         user = serializer.save()
         return Response({'id': user.id, 'email': user.email}, status=status.HTTP_201_CREATED)
     else:
-        print("no data found")
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print("After not validating serializer.is_valid - return response Searilizer.erros")
+        return Response({"User already exists"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def login(request):
@@ -32,6 +33,6 @@ def login(request):
             print(user)
             return Response({'Message' : 'user logged in successfully'}, status = status.HTTP_200_OK)
         else :
-            return Response({"Message : Invalid email or password"} , status =status.HTTP_400_BAD_REQUEST )
+            return Response({"Invalid email or password"} , status =status.HTTP_400_BAD_REQUEST )
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
