@@ -1,6 +1,6 @@
 import "./Signup.css"
 import React, { useState } from 'react';
-
+import Nav from '../../navbar/Nav'
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -54,6 +54,9 @@ const Signup = () => {
     
 
     return (
+        <>
+        <Nav />
+
         <div className="signup-container">
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit} className="signup-form">
@@ -120,6 +123,7 @@ const Signup = () => {
                 <button type="submit">Sign Up</button>
             </form>
         </div>
+        </>
     );
 };
 
